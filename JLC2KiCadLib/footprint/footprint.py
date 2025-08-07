@@ -88,7 +88,7 @@ def create_footprint(
 
     if any(
         isinstance(child, Pad) and child.type == Pad.TYPE_THT
-        for child in kicad_mod.getAllChilds()
+        for child in kicad_mod.get_flattened_nodes()
     ):
         kicad_mod.footprintType = FootprintType.THT
     else:
@@ -104,8 +104,8 @@ def create_footprint(
 
     # set general values
     kicad_mod.append(
-        Text(
-            type="reference",
+        Property(
+            name=Property.REFERENCE,
             text="REF**",
             at=[
                 (footprint_info.min_X + footprint_info.max_X) / 2,
@@ -115,8 +115,8 @@ def create_footprint(
         )
     )
     kicad_mod.append(
-        Text(
-            type="user",
+        Property(
+            name=Property.REFERENCE,
             text="REF**",
             at=[
                 (footprint_info.min_X + footprint_info.max_X) / 2,
@@ -126,8 +126,8 @@ def create_footprint(
         )
     )
     kicad_mod.append(
-        Text(
-            type="value",
+        Property(
+            name=Property.VALUE,
             text=footprint_name,
             at=[
                 (footprint_info.min_X + footprint_info.max_X) / 2,

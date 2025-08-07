@@ -177,7 +177,7 @@ def h_PAD(data, kicad_mod, footprint_info):
         points = []
         for i, coord in enumerate(data[8].split(" ")):
             points.append(mil2mm(coord) - at[i % 2])
-        primitives = [Polygon(nodes=zip(points[::2], points[1::2]))]
+        primitives = [Polygon(shape=tuple(zip(points[::2], points[1::2])))]
         size = [0.1, 0.1]
 
         if drill_offset == 0:  # Check if the hole is oval
@@ -271,9 +271,9 @@ def h_ARC(data, kicad_mod, footprint_info):
             large_arc_flag = 1
 
         if large_arc_flag == 1:
-            vec2 = vec1.rotate(-90)
+            vec2 = vec1.rotate(-90,Vector2D(0,0))
         else:
-            vec2 = vec1.rotate(90)
+            vec2 = vec1.rotate(90,Vector2D(0,0))
 
         magnitude = sqrt(vec2[0] ** 2 + vec2[1] ** 2)
         vec2 = Vector2D(vec2[0] / magnitude, vec2[1] / magnitude)
