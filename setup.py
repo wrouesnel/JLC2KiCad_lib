@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 from JLC2KiCadLib.__version__ import __version__
 
-long_description = open(os.path.join(sys.path[0], "README.md")).read()
+long_description = open("README.md").read()
 
 setup(
     name="JLC2KiCadLib",
@@ -28,3 +28,4 @@ setup(
     ],
     python_requires=">=3.6",
 )
+
