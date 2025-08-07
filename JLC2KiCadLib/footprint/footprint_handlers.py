@@ -10,7 +10,7 @@ from KicadModTree import (
     Vector2D,
     Arc,
     Circle,
-    RectFill,
+    Rectangle,
     Text,
     RectLine,
 )
@@ -426,10 +426,11 @@ def h_RECT(data, kicad_mod, footprint_info):
     if width == 0:
         # filled:
         kicad_mod.append(
-            RectFill(
+            Rectangle(
                 start=start,
                 end=end,
                 layer=layer_correspondance[data[4]],
+                fill=True,
             )
         )
     else:
