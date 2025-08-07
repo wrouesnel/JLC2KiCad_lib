@@ -16,7 +16,7 @@ setup(
     version=__version__,
     author="TousstNicolas",
     license="MIT",
-    install_requires=["kicad-footprint-generator", "requests"],
+    install_requires=["kicad-footprint-generator@git+https://gitlab.com/kicad/libraries/kicad-footprint-generator.git@master", "requests"],
     packages_dir={"JLC2KiCadLib": "JLC2KiCadLib"},
     packages=find_packages(exclude=[]),
     entry_points={"console_scripts": ["JLC2KiCadLib = JLC2KiCadLib.JLC2KiCadLib:main"]},
