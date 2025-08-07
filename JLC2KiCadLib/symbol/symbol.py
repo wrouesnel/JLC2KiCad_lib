@@ -65,6 +65,14 @@ def create_symbol(
             .replace('"', "{dblquote}")
         )
 
+        description_parts = []
+        description_parts.extend(data["result"].get("tags", []))
+        description_parts.extend([data["result"]["description"]] if "description" in data["result"] else [])
+        description_parts.extend([data["result"]["packageDetail"]["dataStr"]["head"]["c_para"]["package"]])
+
+        component_description = ",".join(description_parts)
+        component_value = data["result"]["dataStr"]["head"]["c_para"]["Value"] if "Value" in data["result"]["dataStr"]["head"]["c_para"] else data["result"]["dataStr"]["head"]["c_para"]["name"]
+
         component_types_values = []
         for value_type in supported_value_types:
             if value_type in data["result"]["dataStr"]["head"]["c_para"]:
@@ -118,7 +126,7 @@ def create_symbol(
     (property "Reference" "{symmbolic_prefix}" (id 0) (at 0 1.27 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "{ComponentName}" (id 1) (at 0 -2.54 0)
+    (property "Value" "{component_value}" (id 1) (at 0 -2.54 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "{footprint_name}" (id 2) (at 0 -10.16 0)
@@ -126,6 +134,15 @@ def create_symbol(
     )
     (property "Datasheet" "{datasheet_link}" (id 3) (at -2.286 0.127 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
+    )
+    (property "Description" "{component_description}"
+        (at 0 0 0)
+        (effects
+            (font
+                (size 1.27 1.27)
+            )
+            (hide yes)
+        )
     )
     (property "ki_keywords" "{component_id}" (id 4) (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
