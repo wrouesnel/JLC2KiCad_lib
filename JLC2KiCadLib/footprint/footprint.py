@@ -35,7 +35,7 @@ def create_footprint(
             return f"{footprint_lib}:{footprint_name}", datasheet_link
 
     # init kicad footprint
-    kicad_mod = Footprint(f'"{footprint_name}"')
+    kicad_mod = Footprint(f'"{footprint_name}"', footprint_type=FootprintType.UNSPECIFIED)
     kicad_mod.setDescription(f"{footprint_name} footprint")  # TODO Set real description
     kicad_mod.setTags(f"{footprint_name} footprint {component_id}")
 
@@ -90,9 +90,9 @@ def create_footprint(
         isinstance(child, Pad) and child.type == Pad.TYPE_THT
         for child in kicad_mod.getAllChilds()
     ):
-        kicad_mod.setAttribute("through_hole")
+        kicad_mod.footprintType = FootprintType.THT
     else:
-        kicad_mod.setAttribute("smd")
+        kicad_mod.footprintType = FootprintType.SMD
 
     kicad_mod.insert(Translation(-mil2mm(translation[0]), -mil2mm(translation[1])))
 
